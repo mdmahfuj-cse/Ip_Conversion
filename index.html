@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Conversion Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-network-wired"></i> IP Address Conversion Tool</h1>
+            <p>Convert IP addresses between different formats quickly and easily</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label for="ip-input">IP Address</label>
+                            <input type="text" id="ip-input" placeholder="Enter IP address (e.g., 192.168.1.1)">
+                            <div id="ip-error" class="error-message hidden">
+                                <i class="fas fa-exclamation-circle"></i> Please enter a valid IP address
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label for="conversion-type">Conversion Type</label>
+                            <select id="conversion-type">
+                                <option value="all">All Conversions</option>
+                                <option value="decimal">Decimal to Binary</option>
+                                <option value="binary">Binary to Decimal</option>
+                                <option value="hex">Hexadecimal Conversion</option>
+                                <option value="cidr">CIDR Notation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button id="convert-btn" class="btn btn-convert">
+                    <i class="fas fa-sync-alt"></i> Convert IP Address
+                </button>
+            </div>
+
+            <div class="results-section">
+                <h2><i class="fas fa-chart-bar"></i> Conversion Results</h2>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <div class="result-title">Decimal IP Address</div>
+                        <div class="result-value" id="decimal-result">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title">Binary IP Address</div>
+                        <div class="result-value" id="binary-result">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title">Hexadecimal IP Address</div>
+                        <div class="result-value" id="hex-result">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title">CIDR Notation</div>
+                        <div class="result-value" id="cidr-result">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title">IP Address Class</div>
+                        <div class="result-value" id="class-result">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title">IP Type</div>
+                        <div class="result-value" id="type-result">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h2><i class="fas fa-history"></i> Conversion History</h2>
+                <div class="history-list" id="history-list">
+                    <!-- History items will be added here dynamically -->
+                    <div class="history-item">
+                        <div>
+                            <div class="history-ip">192.168.1.1</div>
+                            <div class="history-type">All Conversions</div>
+                        </div>
+                        <div class="history-actions">
+                            <button class="action-btn tooltip">
+                                <i class="fas fa-copy"></i>
+                                <span class="tooltiptext">Copy to clipboard</span>
+                            </button>
+                            <button class="action-btn tooltip">
+                                <i class="fas fa-redo"></i>
+                                <span class="tooltiptext">Use this IP again</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>IP Address Conversion Tool &copy; 2025 | Made with <i class="fas fa-heart" style="color: var(--danger);"></i></p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
