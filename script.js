@@ -113,3 +113,42 @@ document.addEventListener('DOMContentLoaded', function() {
         return ip + '/24';
     }
     
+        
+    function getIPClass(ip) {
+        const firstOctet = parseInt(ip.split('.')[0], 10);
+        
+        if (firstOctet >= 1 && firstOctet <= 126) return 'Class A';
+        if (firstOctet >= 128 && firstOctet <= 191) return 'Class B';
+        if (firstOctet >= 192 && firstOctet <= 223) return 'Class C';
+        if (firstOctet >= 224 && firstOctet <= 239) return 'Class D (Multicast)';
+        if (firstOctet >= 240 && firstOctet <= 255) return 'Class E (Experimental)';
+        
+        return 'Unknown';
+    }
+    
+    function getIPType(ip) {
+        const parts = ip.split('.').map(part => parseInt(part, 10));
+        
+        // Private IP ranges
+        if (parts[0] === 10) return 'Private';
+        if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) return 'Private';
+        if (parts[0] === 192 && parts[1] === 168) return 'Private';
+        
+        // Localhost
+        if (parts[0] === 127) return 'Loopback';
+        
+        // Link-local
+        if (parts[0] === 169 && parts[1] === 254) return 'Link-local';
+        
+        // Public
+        return 'Public';
+    }
+    
+    // History functions
+    function addToHistory(ip, type) {
+        const historyItem = {
+            ip: ip,
+            type: type === 'all' ? 'All Conversions' : conversionType.options[conversionType.selectedIndex].text,
+            timestamp: new Date()
+        };
+        
