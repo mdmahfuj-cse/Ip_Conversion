@@ -50,4 +50,66 @@ document.addEventListener('DOMContentLoaded', function() {
         if (type === 'all' || type === 'decimal') {
             decimalResult.textContent = ipToDecimal(ip);
         }
+        if (type === 'all' || type === 'binary') {
+            binaryResult.textContent = ipToBinary(ip);
+        }
         
+        if (type === 'all' || type === 'hex') {
+            hexResult.textContent = ipToHex(ip);
+        }
+        
+        if (type === 'all' || type === 'cidr') {
+            cidrResult.textContent = ipToCIDR(ip);
+        }
+        
+        if (type === 'all') {
+            classResult.textContent = getIPClass(ip);
+            typeResult.textContent = getIPType(ip);
+        } else {
+            classResult.textContent = '-';
+            typeResult.textContent = '-';
+        }
+        
+        // Add to history
+        addToHistory(ip, type);
+        
+        // Add copy buttons to results
+        addCopyButtons();
+    }
+    
+    // IP validation
+    function isValidIP(ip) {
+        const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+        if (!ipRegex.test(ip)) return false;
+        
+        const parts = ip.split('.');
+        for (let part of parts) {
+            const num = parseInt(part, 10);
+            if (num < 0 || num > 255) return false;
+        }
+        
+        return true;
+    }
+    
+    // Conversion functions
+    function ipToDecimal(ip) {
+        return ip;
+    }
+    
+    function ipToBinary(ip) {
+        return ip.split('.').map(part => {
+            return parseInt(part, 10).toString(2).padStart(8, '0');
+        }).join('.');
+    }
+    
+    function ipToHex(ip) {
+        return ip.split('.').map(part => {
+            return parseInt(part, 10).toString(16).toUpperCase().padStart(2, '0');
+        }).join('.');
+    }
+    
+    function ipToCIDR(ip) {
+        // Simple CIDR representation - in a real app, this would be more complex
+        return ip + '/24';
+    }
+    
