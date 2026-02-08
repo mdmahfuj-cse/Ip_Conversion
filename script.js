@@ -20,3 +20,34 @@ document.addEventListener('DOMContentLoaded', function() {
         { ip: '10.0.0.1', type: 'Decimal to Binary', timestamp: new Date(Date.now() - 3600000) },
         { ip: '172.16.254.1', type: 'Hexadecimal Conversion', timestamp: new Date(Date.now() - 7200000) }
     ];
+        
+    // Initialize with sample history
+    renderHistory();
+    
+    // Event listeners
+    convertBtn.addEventListener('click', convertIP);
+    ipInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            convertIP();
+        }
+    });
+    
+    // Conversion function
+    function convertIP() {
+        const ip = ipInput.value.trim();
+        
+        // Validate IP address
+        if (!isValidIP(ip)) {
+            ipError.classList.remove('hidden');
+            return;
+        }
+        
+        ipError.classList.add('hidden');
+        
+        // Perform conversions based on selected type
+        const type = conversionType.value;
+        
+        if (type === 'all' || type === 'decimal') {
+            decimalResult.textContent = ipToDecimal(ip);
+        }
+        
