@@ -151,4 +151,65 @@ document.addEventListener('DOMContentLoaded', function() {
             type: type === 'all' ? 'All Conversions' : conversionType.options[conversionType.selectedIndex].text,
             timestamp: new Date()
         };
+               conversionHistory.unshift(historyItem);
         
+        // Keep only last 10 items
+        if (conversionHistory.length > 10) {
+            conversionHistory.pop();
+        }
+        
+        renderHistory();
+    }
+    
+    function renderHistory() {
+        historyList.innerHTML = '';
+        
+        conversionHistory.forEach(item => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            
+            const timeAgo = getTimeAgo(item.timestamp);
+            
+            historyItem.innerHTML = `
+                <div>
+                    <div class="history-ip">${item.ip}</div>
+                    <div class="history-type">${item.type} • ${timeAgo}</div>
+                </div>
+                <div class="history-actions">
+                    <button class="action-btn tooltip copy-history" data-ip="${item.ip}">
+                        <i class="fas fa-copy"></i>
+                        <span class="tooltiptext">Copy to clipboard</span>
+                    </button>
+                    <button class="action-btn tooltip reuse-history" data-ip="${item.ip}">
+                        <i class="fas fa-redo"></i>
+                        <span class="tooltiptext">Use this IP again</span>
+                    </button>
+                </div>
+            `;
+            
+            historyList.appendChild(historyItem);
+        });
+        
+        // Add event listeners to history buttons
+        document.querySelectorAll('.copy-history').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const ip = this.getAttribute('data-ip');
+                navigator.clipboard.writeText(ip).then(() => {
+                    // Show feedback
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                    }, 1000);
+                });
+            });
+        });
+        
+        document.querySelectorAll('.reuse-history').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const ip = this.getAttribute('data-ip');
+                ipInput.value = ip;
+                convertIP();
+            });
+        });
+    }
