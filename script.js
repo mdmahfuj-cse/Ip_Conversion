@@ -213,3 +213,60 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    function getTimeAgo(timestamp) {
+        const now = new Date();
+        const diffMs = now - timestamp;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        if (diffMins < 1) return 'Just now';
+        if (diffMins < 60) return `${diffMins} min ago`;
+        if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+    }
+    
+    // Add copy buttons to results
+    function addCopyButtons() {
+        const resultValues = document.querySelectorAll('.result-value');
+        
+        resultValues.forEach(valueElement => {
+            // Remove existing copy button if any
+            const existingBtn = valueElement.querySelector('.copy-btn');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+            
+            // Add new copy button
+            if (valueElement.textContent !== '-') {
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn tooltip';
+                copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                copyBtn.setAttribute('title', 'Copy to clipboard');
+                
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tooltiptext';
+                tooltip.textContent = 'Copy to clipboard';
+                copyBtn.appendChild(tooltip);
+                
+                copyBtn.addEventListener('click', function() {
+                    const textToCopy = valueElement.textContent;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Show feedback
+                        const originalHTML = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            this.innerHTML = originalHTML;
+                        }, 1000);
+                    });
+                });
+                
+                valueElement.appendChild(copyBtn);
+            }
+        });
+    }
+    
+    // Initialize with a sample conversion
+    ipInput.value = '192.168.1.1';
+});
