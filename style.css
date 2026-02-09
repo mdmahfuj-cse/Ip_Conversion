@@ -244,3 +244,27 @@ input:focus, select:focus {
     cursor: pointer;
     transition: var(--transition);
 }
+
+.action-btn:hover {
+    color: var(--primary);
+}
+
+footer {
+    text-align: center;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.error-message {
+    color: var(--danger);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
