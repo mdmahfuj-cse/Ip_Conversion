@@ -201,3 +201,24 @@ input:focus, select:focus {
     align-items: center;
     gap: 0.5rem;
 }
+
+
+.history-list {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #e9ecef;
+    border-radius: var(--border-radius);
+}
+
+.history-item {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}

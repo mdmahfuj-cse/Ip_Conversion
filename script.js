@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const convertBtn = document.getElementById('convert-btn');
     const ipError = document.getElementById('ip-error');
     
+    
     // Result elements
     const decimalResult = document.getElementById('decimal-result');
     const binaryResult = document.getElementById('binary-result');
