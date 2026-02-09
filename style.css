@@ -268,3 +268,22 @@ footer {
 .hidden {
     display: none;
 }
+
+@media (max-width: 768px) {
+    .input-row {
+        flex-direction: column;
+    }
+    
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
