@@ -222,3 +222,25 @@ input:focus, select:focus {
 .history-item:last-child {
     border-bottom: none;
 }
+
+.history-ip {
+    font-weight: 600;
+}
+
+.history-type {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.history-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    transition: var(--transition);
+}
